@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 function Homepage() {
   const [openMenu, setOpenMenu] = useState(null);
-  const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef(null);
 
   const toggleMenu = (menu) => {
@@ -11,6 +10,7 @@ function Homepage() {
 
   // Close dropdown when clicking outside
   useEffect(() => {
+    3;
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setOpenMenu(null);
@@ -30,14 +30,14 @@ function Homepage() {
         <img
           src="/BG-LOGO.png"
           alt="Logo"
-          className="w-64 h-64 sm:w-96 sm:h-96 md:w-125 md:h-125 object-cover rounded-full opacity-[0.15]"
+          className="w-125 h-125 object-cover rounded-full opacity-[0.3]"
         />
       </div>
 
       {/* Navbar start */}
       <nav className="w-full font-sans relative z-50">
         {/* Top Header Section */}
-        <div className="font-bold flex items-center justify-between gap-2 px-3 sm:px-4 md:px-8 py-1.5 text-white text-[10px] sm:text-xs bg-[rgb(49_56_81)]">
+        <div className="font-bold flex items-center justify-between px-4 md:px-8 py-1.5 text-white text-xs bg-[rgb(49_56_81)]">
           {/* Gmail */}
           <a
             href="mailto:medclickpharma@gmail.com"
@@ -61,19 +61,19 @@ function Homepage() {
         </div>
 
         {/* Search & Logo Section */}
-        <div className="px-3 sm:px-4 md:px-8 py-3 bg-white">
-          <div className="flex items-center justify-between gap-3">
+        <div className="px-4 md:px-8 py-3 bg-white">
+          <div className="flex items-center gap-3">
             {/* Logo */}
             <a href="/">
               <img
                 alt="Logo"
-                className="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 object-contain"
+                className="w-36 h-36 object-contain"
                 src="/BG-LOGO.png"
               />
             </a>
             {/* Center Search Bar */}
             <div className="hidden md:flex flex-1 max-w-xl mx-auto">
-              <div className="flex w-full max-w-xl mx-auto">
+              <div className="flex w-150 mx-auto">
                 <input
                   placeholder="Search medicines..."
                   className="flex-1 px-4 py-3 text-sm outline-none rounded-l-md bg-white text-gray-700 placeholder-gray-400 border-2 border-[#b6c7d6] focus:border-[#313851] transition-colors"
@@ -104,33 +104,20 @@ function Homepage() {
               </span>
             </a>
           </div>
-          <div className="md:hidden mt-3">
-            <div className="flex w-full">
-              <input placeholder="Search medicines..." className="flex-1 min-w-0 px-4 py-2.5 text-sm outline-none rounded-l-md bg-white text-gray-700 placeholder-gray-400 border-2 border-[#b6c7d6] focus:border-[#313851]" type="text" />
-              <button className="px-4 py-2.5 text-sm font-semibold text-white rounded-r-md bg-[rgb(49_56_81)]">Search</button>
-            </div>
-          </div>
         </div>
 
         {/* Main Category Menu Bar */}
-        <div className="mx-auto bg-white xl:bg-[rgb(49_56_81)] max-w-full text-gray-700 xl:text-white border-b border-gray-200 xl:border-0">
-          <div className="hidden items-center justify-between px-4 py-3 xl:hidden">
-            <span className="text-sm font-semibold">Categories</span>
-            <button type="button" onClick={() => setMobileOpen((open) => !open)} aria-label={mobileOpen ? "Close category menu" : "Open category menu"} aria-expanded={mobileOpen} className="p-1 rounded focus:outline-none focus:ring-2 focus:ring-white">
-              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                {mobileOpen ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
-              </svg>
-            </button>
-          </div>
+        <div className="mx-auto h-12 bg-[rgb(49_56_81)] max-w-full text-white ">
+          {/* ref={menuRef} attached to the outer menu container */}
           <ul
             ref={menuRef}
-            className="flex flex-col items-stretch gap-0 px-0 pb-0 xl:flex-row xl:items-center xl:justify-center xl:gap-8 xl:px-4 xl:py-3 xl:pb-3"
+            className="flex items-center justify-center gap-8 pt-3 "
           >
             {/* Men's Health */}
-            <li className="relative w-full xl:w-auto border-b border-gray-100 xl:border-0 px-3 py-0 xl:px-0 xl:py-0">
+            <li className="relative">
               <button
                 onClick={() => toggleMenu("men")}
-                className="flex w-full items-center justify-between gap-2 py-3 text-sm font-semibold whitespace-nowrap cursor-pointer xl:w-auto xl:justify-start xl:py-0"
+                className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap cursor-pointer"
               >
                 Men's Health
                 <svg
@@ -147,7 +134,7 @@ function Homepage() {
               </button>
 
               {openMenu === "men" && (
-                <div className="static mt-2 w-full xl:absolute xl:left-0 xl:right-auto xl:top-full xl:mt-3.5 xl:w-52 bg-white divide-y divide-gray-100 text-gray-700 rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
+                <div className="absolute left-0 right-0 top-full mt-3.5 w-52 bg-white divide-y divide-gray-100 text-gray-700 rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
                   <Link
                     to="/Avanafil"
                     className="hover:text-amber-600 block px-5 py-3 text-sm hover:bg-gray-100"
@@ -164,21 +151,19 @@ function Homepage() {
                   </Link>
                   <Link
                     to="/Sildenafil"
-                    onClick={() => { setOpenMenu(null); setMobileOpen(false); }}
                     className="hover:text-amber-600 block px-5 py-3 text-sm hover:bg-gray-100"
                   >
                     Sildenafil
                   </Link>
                   <Link
                     to="/Tadalafil"
-                    onClick={() => { setOpenMenu(null); setMobileOpen(false); }}
                     className="hover:text-amber-600 block px-5 py-3 text-sm hover:bg-gray-100"
                   >
                     Tadalafil
                   </Link>
                   <Link
                     to="/Vardenafil"
-                    onClick={() => { setOpenMenu(null); setMobileOpen(false); }}
+                    href="#"
                     className="hover:text-amber-600 block px-5 py-3 text-sm hover:bg-gray-100"
                   >
                     Vardenafil
@@ -188,10 +173,10 @@ function Homepage() {
             </li>
 
             {/* Women's Health */}
-            <li className="relative w-full xl:w-auto border-b border-gray-100 xl:border-0 px-3 py-0 xl:px-0 xl:py-0">
+            <li className="relative">
               <button
                 onClick={() => toggleMenu("women")}
-                className="flex w-full items-center justify-between gap-2 py-3 text-sm font-semibold whitespace-nowrap cursor-pointer xl:w-auto xl:justify-start xl:py-0"
+                className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap cursor-pointer divide-y divide-gray-100"
               >
                 Women's Health
                 <svg
@@ -208,7 +193,7 @@ function Homepage() {
               </button>
 
               {openMenu === "women" && (
-                <div className="static mt-2 w-full xl:absolute xl:left-0 xl:right-auto xl:top-full xl:mt-3.5 xl:w-52 bg-white text-gray-700 rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
+                <div className="absolute left-0 right-0 top-full mt-3.5 w-52 bg-white text-gray-700 rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
                   <Link
                     to="/Contraceptives"
                     className="hover:text-amber-600 block px-5 py-3 text-sm hover:bg-gray-100"
@@ -224,8 +209,8 @@ function Homepage() {
             <li>
               <Link
                 to="/Pain Killer"
-                onClick={() => { setOpenMenu(null); setMobileOpen(false); }}
-                className="block w-full py-3 text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] xl:w-auto xl:py-0"
+                href="#"
+                className="text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] "
               >
                 Pain Killer
               </Link>
@@ -233,7 +218,8 @@ function Homepage() {
 
             <li>
               <Link to ="/Weightloss"
-                className="block w-full py-3 text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] xl:w-auto xl:py-0"
+                href="#"
+                className="text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] "
               >
                 Weight Loss
               </Link>
@@ -241,7 +227,8 @@ function Homepage() {
 
             <li>
               <Link to ="/Steroid"
-                className="block w-full py-3 text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] xl:w-auto xl:py-0"
+                href="#"
+                className="text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] "
               >
                 Steroid
               </Link>
@@ -249,7 +236,8 @@ function Homepage() {
 
             <li>
               <Link to = "/SleepingPills"
-                className="block w-full py-3 text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] xl:w-auto xl:py-0"
+                href="#"
+                className="text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] "
               >
                 Sleeping Pills
               </Link>
@@ -257,7 +245,8 @@ function Homepage() {
 
             <li>
               <Link to ="/Modafinil_Armodafinil"
-                className="block w-full py-3 text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] xl:w-auto xl:py-0"
+                href="#"
+                className="text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] "
               >
                 Modafinil & Armodafinil
               </Link>
@@ -265,17 +254,18 @@ function Homepage() {
 
             <li>
               <Link to = "/Antiviral_Antibiotic"
-                className="block w-full py-3 text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] xl:w-auto xl:py-0"
+                href="#"
+                className="text-sm font-semibold whitespace-nowrap hover:text-[#D4F0E0] "
               >
                 Antiviral & Antibiotic
               </Link>
             </li>
 
             {/* Other Categories */}
-            <li className="relative w-full xl:w-auto border-b border-gray-100 xl:border-0 px-3 py-0 xl:px-0 xl:py-0">
+            <li className="relative">
               <button
                 onClick={() => toggleMenu("other")}
-                className="flex w-full items-center justify-between gap-2 py-3 text-sm font-semibold whitespace-nowrap cursor-pointer xl:w-auto xl:justify-start xl:py-0"
+                className="flex items-center gap-2 text-sm font-semibold whitespace-nowrap cursor-pointer "
               >
                 Other Categories
                 <svg
@@ -292,23 +282,27 @@ function Homepage() {
               </button>
 
               {openMenu === "other" && (
-                <div className="static mt-2 w-full xl:absolute xl:left-0 xl:right-auto xl:top-full xl:mt-3.5 xl:w-52 bg-white text-gray-700 rounded-lg divide-y divide-gray-100 shadow-xl border border-gray-200 z-50 overflow-hidden">
+                <div className="absolute left-0 right-0 top-full mt-3.5 w-52 bg-white text-gray-700 rounded-lg divide-y divide-gray-100 shadow-xl border border-gray-200 z-50 overflow-hidden">
                   <Link to ="/HairLossTreatment"
+                    href="#"
                     className="hover:text-amber-600 block px-5 py-2.5 text-sm hover:bg-gray-100"
                   >
                     Hair Loss Treatment
                   </Link>
                   <Link to="/SkinCreame"
+                    href="#"
                     className="hover:text-amber-600 block px-5 py-2.5 text-sm hover:bg-gray-100"
                   >
                     Skin Cream
                   </Link>
                   <Link to = "/EyeEarDrops"
+                    href="#"
                     className="hover:text-amber-600 block px-5 py-2.5 text-sm hover:bg-gray-100"
                   >
                     Eye-Ear-Drops
                   </Link>
                   <Link to="/KamagraAllRange"
+                    href="#"
                     className="hover:text-amber-600 block px-5 py-2.5 text-sm hover:bg-gray-100"
                   >
                     Kamagra All Range
@@ -326,6 +320,7 @@ function Homepage() {
                     Others Products
                   </Link>
                   <Link to ="/DropShipping"
+                    href="#"
                     className="hover:text-amber-600 block px-5 py-2.5 text-sm hover:bg-gray-100"
                   >
                     Drop Shipping
@@ -352,6 +347,7 @@ function Homepage() {
                   BestSeller
                 </h2>
                 <Link to="/BestSeller"
+                  href="#"
                   className="text-sm font-semibold no-underline hover:underline text-[rgb(23,184,197)]"
                 >
                   See All
@@ -361,7 +357,7 @@ function Homepage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="flex flex-col items-center rounded-2xl border-2 border-[#313851] bg-white p-4 gap-3 hover:shadow-lg transition-shadow duration-200 cursor-pointer">
                   {/* 1st card */}
-                  <div className="w-full flex items-center justify-center rounded-xl overflow-hidden bg-gray-50 h-32 sm:h-40">
+                  <div className="w-full flex items-center justify-center rounded-xl overflow-hidden bg-gray-50 h-35">
                     <img
                       src="Bestseller1.jpg"
                       alt=""
@@ -380,7 +376,7 @@ function Homepage() {
                 </div>
                 {/* 2nd Card */}
                 <div className="flex flex-col items-center rounded-2xl border-2 border-[#313851] bg-white p-4 gap-3 hover:shadow-lg transition-shadow duration-200 cursor-pointer">
-                  <div className="w-full flex items-center justify-center rounded-xl overflow-hidden bg-gray-50 h-32 sm:h-40">
+                  <div className="w-full flex items-center justify-center rounded-xl overflow-hidden bg-gray-50 h-35">
                     <img src="Bestsaller2.png" alt="" />{" "}
                   </div>
                   <p className="text-sm font-semibold text-gray-800 text-center leading-snug mt-1">
@@ -395,7 +391,7 @@ function Homepage() {
                 </div>
                 {/* 3rd card */}
                 <div className="flex flex-col items-center rounded-2xl border-2 border-[#313851] bg-white p-4 gap-3 hover:shadow-lg transition-shadow duration-200 cursor-pointer">
-                  <div className="w-full flex items-center justify-center rounded-xl overflow-hidden bg-gray-50 h-32 sm:h-40">
+                  <div className="w-full flex items-center justify-center rounded-xl overflow-hidden bg-gray-50 h-35">
                     <img src="Bestsaller3.png" alt="" />
                   </div>
                   <p className="text-sm font-semibold text-gray-800 text-center leading-snug mt-1">
@@ -410,7 +406,7 @@ function Homepage() {
                 </div>
                 {/* 4th Card */}
                 <div className="flex flex-col items-center rounded-2xl border-2 border-[#313851] bg-white p-4 gap-3 hover:shadow-lg transition-shadow duration-200 cursor-pointer">
-                  <div className="w-full flex items-center justify-center rounded-xl overflow-hidden bg-gray-50 h-32 sm:h-40">
+                  <div className="w-full flex items-center justify-center rounded-xl overflow-hidden bg-gray-50 h-35">
                     <img src="Bestsaller4.png" alt="" />
                   </div>
                   <p className="text-sm font-semibold text-gray-800 text-center leading-snug mt-1">
@@ -515,10 +511,11 @@ function Homepage() {
           </h2>
 
           {/* div for 5 sections */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 max-w-7xl mx-auto">
+          <div className="hidden md:grid grid-cols-5 gap-4 max-w-7xl mx-auto">
             {/* first Image  */}
             <Link to="/SkinCreame"
-              className="block relative rounded-2xl overflow-hidden no-underline group bg-[rgb(200,230,192)] h-44 sm:h-48 w-full border border-gray-400"
+              href="#"
+              className="block relative rounded-2xl overflow-hidden no-underline group bg-[rgb(200,230,192)] h-50 w-full border border-gray-400"
             >
               <img
                 src="Shop1.jpeg"
@@ -537,7 +534,7 @@ function Homepage() {
             {/* Second Image  */}
             <Link
               to="/Avanafil"
-              className="block relative rounded-2xl overflow-hidden no-underline group bg-[rgb(200,230,192)] h-44 sm:h-48 w-full border border-gray-400"
+              className="block relative rounded-2xl overflow-hidden no-underline group bg-[rgb(200,230,192)] h-50 w-full border border-gray-400"
             >
               <img
                 src="Shop2.jpg"
@@ -556,7 +553,7 @@ function Homepage() {
             {/* Third Image  */}
             <Link
               to="/Dapoxetine"
-              className="block relative rounded-2xl overflow-hidden no-underline group bg-[rgb(200,230,192)] h-44 sm:h-48 w-full border border-gray-400"
+              className="block relative rounded-2xl overflow-hidden no-underline group bg-[rgb(200,230,192)] h-50 w-full border border-gray-400"
             >
               <img
                 src="Shop3.jpg"
@@ -574,7 +571,8 @@ function Homepage() {
             </Link>
             {/* Fourth Image */}
             <Link to ="/EyeEarDrops"
-              className="block relative rounded-2xl overflow-hidden no-underline group bg-[rgb(200,230,192)] h-44 sm:h-48 w-full border border-gray-400"
+              href="#"
+              className="block relative rounded-2xl overflow-hidden no-underline group bg-[rgb(200,230,192)] h-50 w-full border border-gray-400"
             >
               <img
                 src="shop4.jpg"
@@ -592,7 +590,8 @@ function Homepage() {
             </Link>
             {/* fifth Image */}
             <Link to ="/HairLossTreatment"
-              className="block relative rounded-2xl overflow-hidden no-underline group bg-[rgb(200,230,192)] h-44 sm:h-48 w-full border border-gray-400"
+              href="#"
+              className="block relative rounded-2xl overflow-hidden no-underline group bg-[rgb(200,230,192)] h-50 w-full border border-gray-400"
             >
               <img
                 src="Shop5.jpg"
@@ -620,6 +619,7 @@ function Homepage() {
                 Skin Care
               </h2>
               <Link to="/SkinCreame"
+                href="#"
                 className="text-sm font-semibold no-underline hover:underline text-[rgb(23,184,197)]"
               >
                 See All
@@ -627,7 +627,7 @@ function Homepage() {
             </div>
 
             {/* div for images */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div className="hidden md:grid grid-cols-5 gap-4">
               <div className="flex flex-col items-center rounded-2xl border-2 border-[#313851] bg-white p-4 gap-3 hover:shadow-lg transition-shadow duration-200 h-full w-full justify-center overflow-hidden opacity-100 relative z-10">
                 {/* 1st image */}
                 <div class="w-full flex items-center justify-center rounded-xl overflow-hidden bg-gray-50 h-40 ">
@@ -886,6 +886,7 @@ function Homepage() {
 
               <Link
                 to="/Sildenafil"
+                href="#"
                 className="text-sm font-semibold no-underline hover:underline text-[rgb(23,184,197)]"
               >
                 See All
@@ -894,7 +895,7 @@ function Homepage() {
 
             {/* div for images */}
             {/* 1st Img */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+            <div className="hidden md:grid grid-cols-5 gap-4">
               <div className="flex flex-col items-center rounded-2xl border-2 border-[#313851] bg-white p-4 gap-3 hover:shadow-lg transition-shadow duration-200 h-full w-full justify-center overflow-hidden opacity-100 relative z-10">
                 <div class="w-full flex items-center justify-center rounded-xl overflow-hidden bg-gray-50 h-40 ">
                   <img
@@ -1162,7 +1163,7 @@ function Homepage() {
 
               {/* div for sections */}
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
+              <div className="hidden md:grid grid-cols-5 gap-4">
                 <div className="flex flex-col items-center rounded-2xl border-2 border-[#313851] bg-white p-4 gap-3 hover:shadow-lg transition-shadow duration-200 h-full w-full justify-center overflow-hidden opacity-100 relative z-10">
                   
                   {/* 1st imag */}
@@ -1280,7 +1281,7 @@ function Homepage() {
             </a>
           </div>
           {/* Docotor Image head Div */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {/* 1st image card */}
             <div className="bg-white rounded-2xl border border-[#313851] overflow-hidden flex flex-col h-full z-10 ">
               {/* Image */}
@@ -1399,7 +1400,7 @@ function Homepage() {
             Customer Reviews
           </h2>
           {/* Head Div Start */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 z-10">
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-5 z-10">
             {/* First Card */}
             <div className="bg-gray-100 z-10 rounded-2xl p-6 flex flex-col items-center text-center gap-3 h-full">
               {/* Image */}
@@ -1488,12 +1489,12 @@ function Homepage() {
   target="_blank"
   rel="noopener noreferrer"
   aria-label="Chat on WhatsApp"
-  className="fixed bottom-4 right-4 md:bottom-6 md:right-8 z-[9999] flex h-14 w-14 md:h-15 md:w-15 items-center justify-center rounded-full bg-[#00C853] text-white shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-transform duration-300 hover:scale-110"
+  className="fixed bottom-6 right-8 z-9999 flex h-15 w-15 items-center justify-center rounded-full bg-[#00C853] text-white shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-transform duration-300 hover:scale-110"
 >
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 448 512"
-    className="h-7 w-7 md:h-8 md:w-8"
+    className="h-8 w-8"
     fill="currentColor"
     aria-hidden="true"
   >
@@ -1511,7 +1512,7 @@ function Homepage() {
           {/* grid div */}
           <div className="flex flex-col md:flex-row md:gap-8 lg:gap-12 gap-8 md:items-start">
             {/* again div  */}
-            <div className="w-full md:max-w-xs lg:max-w-sm shrink-0 flex flex-col gap-3">
+            <div className="md:max-w-65 lg:max-w-75 shrink-0 flex flex-col gap-2b">
               {/* Image */}
               <a
                 href="
@@ -1541,7 +1542,7 @@ function Homepage() {
               </div>
             </div>
             {/* 2nd grid  */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 flex-1 gap-8 md:gap-6 lg:gap-10">
+            <div className="flex flex-col md:flex-row flex-1 gap-8 md:gap-6 lg:gap-10 md:justify-between md:mt-37">
               <div className="flex flex-col gap-3">
                 <h3 className="font-bold text-sm tracking-wide text-[#1a1a1a] mb-1">
                   HOT SELLING PRODUCT
